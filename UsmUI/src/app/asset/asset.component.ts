@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { Asset } from '../models/Asset.model';
 import { Theme } from '../models/Theme.model';
 import { SecurityService } from '../services/security.service';
@@ -37,7 +38,7 @@ export class AssetComponent implements OnInit {
 
     this.assetForm = new FormGroup({
       themeId: new FormControl(''),
-      assetId: new FormControl('', [Validators.required,Validators.pattern('[0-9]')]),
+      assetId: new FormControl('', [Validators.required]),
       assetClass: new FormControl('', [Validators.required]),
       subAssetClass: new FormControl('', [Validators.required]),
       liquidity: new FormControl('', [Validators.required]),
@@ -91,6 +92,7 @@ export class AssetComponent implements OnInit {
       // assetDesc: this.assetForm.value.assetDesc,
     };
     // confirm('Header Submitted')
+    Swal.fire("Thank You...",'Asset added successfully','success');
     console.log(this.asset);
 
     this.securityService.postAsset(this.asset,this.themeID).subscribe((res:any)=>{
